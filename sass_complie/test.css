@@ -1,0 +1,32 @@
+.fakeshadow {
+  border-style: solid;
+  border-left-width: 4px;
+  border-left-color: #888;
+  border-right-width: 2px;
+  border-right-color: #ccc;
+  border-right-color: #ccc; }
+
+#top_nav {
+  line-height: 40px;
+  text-transform: capitalize;
+  background-color: #333; }
+  #top_nav li {
+    float: left; }
+  #top_nav div {
+    display: block;
+    padding: 0 10px;
+    color: #fff; }
+    #top_nav div:hover {
+      color: #ddd; }
+  #top_nav {
+    text-emphasis: red; }
+
+.demo {
+  margin-left: auto;
+  margin-right: auto; }
+
+.demo {
+  opacity: 0.5;
+  filter: alpha(opacity=50); }
+
+/*# sourceMappingURL=test.css.map */
