@@ -47,3 +47,6 @@ dist
 build/rev/
 /test/skeleton.js
 *.rar
+axure/
+Would skip repository febutools/
+ 
