@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    str = "img1.jpg,img2.jpg,img3.bmp";
+    reg = /(\w*)(?=\.jpg)/;
+    arr_m = str.match(reg,function (data) {
+
+        console.log("data",data);
+    });//arr_m = ["img1","img2"]
+    console.log(arr_m);
+
+    var str="abZW863";
+    var reg=/ab(?=[A-Z])/;
+    console.log(str.match(reg));
+</script>
+</body>
+</html>
