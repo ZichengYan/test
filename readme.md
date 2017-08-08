@@ -5,6 +5,11 @@
 - `https://cdn.staticfile.org/jquery/3.2.1/jquery.js`
 - `https://cdn.staticfile.org/velocity/1.5.0/velocity.js`
 - `https://cdn.staticfile.org/velocity/1.5.0/velocity.ui.js`
+- `https://cdn.staticfile.org/jqgrid/4.6.0/css/ui.jqgrid.css`
+- `https://cdn.staticfile.org/jqgrid/4.6.0/js/i18n/grid.locale-cn.js`
+- `https://cdn.staticfile.org/jqgrid/4.6.0/js/jquery.jqGrid.min.js`
+- `https://cdn.staticfile.org/jqgrid/4.6.0/css/ui.jqgrid.css`
+
 
 # 文件路径
 
