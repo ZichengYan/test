@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<!--
+移动端iPhone手机文本框1div包着2div,
+1div设置overflow:hidden；2div设置overflow-y:auto;height:200px;
+在iPhone手机没有问题但是在华为手机上出现滚动条时光标水平位置正确，
+垂直位置上升一个行高；如果采用1div设置overflow:hidden；
+2div设置overflow:hidden;min-height:200px;
+这样在iPhone手机上面出现滚动条时光标没有被隐藏遮盖。
+各位有没有什么好的解决方案？除了js判断是不是Android加载添加不同的类名？
+-->
+<style>
+    .a {
+        background: #000;
+        overflow: hidden;
+    }
+
+    .b {
+        background-color: #fff;
+        overflow-y: auto;
+        height: 200px;
+    }
+
+</style>
+<div class="a">
+    <div class="b">
+
+    </div>
+</div>
+</body>
+</html>
