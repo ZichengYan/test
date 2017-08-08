@@ -31,7 +31,7 @@ build/Release
 **/node_modules
 jspm_packages
 
-veloctiy
+veloctiy/velocityServer
 
 # Optional npm cache directory
 .npm
