@@ -2,7 +2,7 @@
 logs
 *.log
 npm-debug.log*
-
+.**/.idea
 # Runtime data
 pids
 *.pid
@@ -28,7 +28,7 @@ coverage
 build/Release
 
 # Dependency directories
-**/node_modules
+/**/node_modules
 jspm_packages
 
 veloctiy/velocityServer
@@ -39,16 +39,13 @@ veloctiy/velocityServer
 # Optional REPL history
 .node_repl_history
 
-bower_components
-
+**/bower_components
 dist
-
 .idea
-
-.svn
+**/.svn
 build/rev/
 /test/skeleton.js
 *.rar
 axure/
 Would skip repository febutools/
-
+git_pro
