@@ -9,6 +9,7 @@
 - `https://cdn.staticfile.org/jqgrid/4.6.0/js/i18n/grid.locale-cn.js`
 - `https://cdn.staticfile.org/jqgrid/4.6.0/js/jquery.jqGrid.min.js`
 - `https://cdn.staticfile.org/jqgrid/4.6.0/css/ui.jqgrid.css`
+- `https://cdn.staticfile.org/vue/2.2.6/vue.js`
 
 
 # 文件路径
