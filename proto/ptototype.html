@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function Init() {
+        
+    }
+    
+    Init.prototype.test1=function () {
+        console.log(this);
+        this.test2();
+    }
+    
+    Init.prototype.test2=function () {
+        console.log(2);
+    }
+
+    var  init2=new Init();
+
+    init2.test1();
+</script>
+</body>
+</html>
