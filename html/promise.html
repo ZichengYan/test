@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    const pro = new Promise(function (reject, reslove) {
+        // reslove(2);
+        throw new Error(123)
+        reject(1);
+
+    });
+    console.log(pro);
+
+    pro
+        .then(function (a) {
+            console.log(a);
+        }, function (b) {
+            console.log(b);
+        }, function (pro) {
+            console.log("then,第三个回调");
+        })
+        .then(function () {
+            throw new Error();
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
+</script>
+</body>
+</html>
