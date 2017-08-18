@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div style="font-size: 8px">为</div>
+<canvas id="myCanvas"></canvas>
+<script type="text/javascript">
+
+    var canvas = document.getElementById('myCanvas');
+    var ctx = canvas.getContext('2d');
+    //设置字体样式
+    ctx.font = "5px Courier New";
+    //设置字体填充颜色
+    ctx.fillStyle = "blue";
+    //从坐标点(50,50)开始绘制文字
+    ctx.fillText("CodePlayer+中文测试", 50, 50);//最小12px
+    ctx.fillText("CodePlayer+中文测试", 50, 60);
+
+
+</script>
+</body>
+</html>
