@@ -7,7 +7,7 @@ const server = http.createServer((req, res) => {
     console.log(req.body);
     setTimeout(function () {
         res.end();
-    },1000)
+    },500)
 });
 
-server.listen(8000);
+server.listen(9123);
