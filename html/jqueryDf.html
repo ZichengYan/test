@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/jquery/1.8.3/jquery.js"></script>
+</head>
+<body>
+<button id="btn">ajaxxxxxxxx</button>
+<script>
+    function asyncEvent() {
+        var dfd = jQuery.Deferred();
+
+        // Resolve after a random interval
+        setTimeout(function () {
+            dfd.resolve("hurray");
+        }, Math.floor(400 + Math.random() * 2000));
+
+        // Reject after a random interval
+        setTimeout(function () {
+            dfd.reject("sorry");
+        }, Math.floor(400 + Math.random() * 2000));
+
+        // Show a "working..." message every half-second
+        setTimeout(function working() {
+            if (dfd.state() === "pending") {
+                dfd.notify("working... ");
+                setTimeout(working, 500);
+            }
+        }, 1);
+
+        console.log("dfd", dfd);
+        // Return the Promise so caller can't change the Deferred
+        return dfd.promise();
+    }
+
+    function _ajax() {
+        const a = $.ajax({
+            url: "http://127.0.0.1:8000",
+
+        })
+        console.log(a.fail);
+    }
+
+    // Attach a done, fail, and progress handler for the asyncEvent
+    $("#btn").click(function () {
+
+        _ajax();
+        $.when(asyncEvent()).then(
+            function (status) {
+                console.log((status + ", things are going well"));
+            },
+            function (status) {
+                console.log((status + ", you fail this time"));
+            },
+            function (status) {
+                $("body").append(status);
+            }
+        );
+    })
+</script>
+</body>
+</html>

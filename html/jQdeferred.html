@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/jquery/1.8.3/jquery.js"></script>
+</head>
+<body>
+<script>
+    $.when(getLIst1(), getList2())
+
+    // done 接受多个同步会回调,但是只有resolve之后才会执行,
+    // resolve中的参数平铺传入,会在done中的形参中组合成数组,
+    // 每个done中的回调形参都相同
+        .done(function (a, b) {
+            console.log("done1", a);
+            console.log(Date.now());
+        }, function (c) {
+            console.log("done2", c);
+            console.log(Date.now());
+        }, function (d) {
+            console.log("done3", d);
+            console.log(Date.now());
+        })
+        // then 不管reject 还是resolve都会执行
+        // 失败参数值接受reject第一个,只有一个形参
+        // 成功参数resolve平铺传入,接受多个,会被准化成数组
+        .then(function (a, b) {
+            console.log("resolve", a, b);//[1,2,3]
+        }, function (b) {
+            console.log("reject", b);// 1
+        });
+
+    function getLIst1() {
+        var dtd = $.Deferred();
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "http://127.0.0.1:8000",
+            success: function (data) {
+                console.log("success1");
+                dtd.reject(1, 2, 3);
+//                dtd.resolve(1, 2, 3);
+            },
+            error: function () {
+                console.log("error2");
+                dtd.resolve();
+            }
+        });
+        return dtd.promise();
+    }
+
+    function getList2() {
+        var dtd = $.Deferred();
+        $.ajax({
+            type: "get",
+            dataType: "json",
+            url: "http://127.0.0.1:8000",
+            success: function (data) {
+                console.log("success2");
+                dtd.resolve();
+            },
+            error: function () {
+                console.log("error2");
+                dtd.resolve();
+            }
+        });//获取公告数据
+        return dtd.promise();
+    }
+</script>
+</body>
+</html>

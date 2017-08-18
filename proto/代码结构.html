@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    function ListCooperInit1() {
+        return {
+            init: function () {
+                this.initHtml()
+            },
+            initHtml: function () {
+             console.log("兄弟方法调用");
+            }
+        };
+    }
+    let obj1=ListCooperInit1();
+    obj1.init();
+
+    function ListooperInit2() {
+        this.init=function (){
+            this.initHtml()
+        };
+        this.initHtml= function () {
+            console.log("兄弟方法调用");
+        };
+    }
+    let obj2=new ListooperInit2();
+    obj2.init();
+</script>
+</body>
+</html>
