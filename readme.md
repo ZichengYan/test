@@ -11,6 +11,7 @@
 - `https://cdn.staticfile.org/jqgrid/4.6.0/css/ui.jqgrid.css`
 - `https://cdn.staticfile.org/vue/2.2.6/vue.js`
 - `https://cdn.staticfile.org/zepto/1.2.0/zepto.js`
+- `https://cdn.staticfile.org/webuploader/0.1.5/webuploader.js`
 
 
 # 文件路径
