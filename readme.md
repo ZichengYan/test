@@ -12,6 +12,7 @@
 - `https://cdn.staticfile.org/vue/2.2.6/vue.js`
 - `https://cdn.staticfile.org/zepto/1.2.0/zepto.js`
 - `https://cdn.staticfile.org/webuploader/0.1.5/webuploader.js`
+- `https://cdn.staticfile.org/jquery/1.11.1/jquery.js`
 
 
 # 文件路径

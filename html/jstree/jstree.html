@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.staticfile.org/jquery/1.11.1/jquery.js"></script>
+    <script src="https://cdn.staticfile.org/jstree/3.2.1/jstree.min.js"></script>
+</head>
+<body>
+<style>
+    #jstree {
+        width: 100%;
+        height: 500px;
+        border: 1px solid #000;
+        display: none;
+    }
+</style>
+<div>
+    <input type="text" id="organName" value="">
+    <input type="text" id="organId" value="">
+    <div id="jstree"></div>
+</div>
+<script>
+
+    $("#organName").focus(function (e) {
+        $("#jstree").show();
+        $.ajax({
+            url: "./tsconfig.json",
+            success: function (data) {
+                var list = data.data.sysDeptList;
+                var length = list.length;
+
+                //重新组合数据,这里将数据原数据做了修改,
+                //乳沟哦不像修改原数据可以使用新变量接收
+                /*
+                var newVal=[];
+                newVal.push({
+                       'id': list[i].id,
+                       'name': list[i].deptName,
+                       'parent': list[i].parentId == '-1' ? '#' : newVal[i].parentId,
+                       'text': list[i].deptName,
+                       'state': {'selected': false, "opened": false}
+                   });*/
+
+                for (var i = 0; i < length; i++) {
+                    list.push({
+                        'id': list[i].id,
+                        'name': list[i].deptName,
+                        'parent': list[i].parentId == '-1' ? '#' : list[i].parentId,
+                        'text': list[i].deptName,
+                        'state': {'selected': false, "opened": false}
+                    });
+                }
+
+                //放置事件重复注册
+                $("#jstree").off("changed.jstree");
+                $('#jstree')
+                    .on("changed.jstree", function (e, data) {
+                        if (data.selected.length) {
+                            var tempData = data.instance.get_node(data.selected[0])
+                            console.log('选择节点为', tempData);
+                            console.log("this", this);
+                            console.log("event", e);
+
+                            // 表单input 赋值
+                            $(this).parent("div").find("#organName").val(tempData.text)
+                            $(this).parent("div").find("#organId").val(tempData.id)
+                            $("#jstree").hide();
+                        }
+                    })
+                    .jstree({
+                        'core': {
+                            'multiple': false,
+                            'data': list
+                        }
+                    });
+            }
+        })
+    })
+
+    $("#organName").on("blur", function () {
+        //这里必须要延时,消失太快会导致tree不能被选中
+        setTimeout(function () {
+            $("#jstree").hide();
+        }, 200)
+    })
+
+
+</script>
+</body>
+</html>
