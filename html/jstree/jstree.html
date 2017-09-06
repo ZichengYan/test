@@ -5,6 +5,8 @@
     <title>Title</title>
     <script src="https://cdn.staticfile.org/jquery/1.11.1/jquery.js"></script>
     <script src="https://cdn.staticfile.org/jstree/3.2.1/jstree.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/jstree/3.2.1/themes/default/style.min.css">
+
 </head>
 <body>
 <style>
@@ -12,7 +14,7 @@
         width: 100%;
         height: 500px;
         border: 1px solid #000;
-        display: none;
+        /*display: none;*/
     }
 </style>
 <div>
@@ -25,7 +27,7 @@
     $("#organName").focus(function (e) {
         $("#jstree").show();
         $.ajax({
-            url: "./tsconfig.json",
+            url: "./jstree1.json",
             success: function (data) {
                 var list = data.data.sysDeptList;
                 var length = list.length;
@@ -65,14 +67,15 @@
                             // 表单input 赋值
                             $(this).parent("div").find("#organName").val(tempData.text)
                             $(this).parent("div").find("#organId").val(tempData.id)
-                            $("#jstree").hide();
+//                            $("#jstree").hide();
                         }
                     })
                     .jstree({
                         'core': {
-                            'multiple': false,
+//                            'multiple': false,
                             'data': list
-                        }
+                        },
+                        "plugins": ["checkbox"]
                     });
             }
         })
@@ -81,7 +84,7 @@
     $("#organName").on("blur", function () {
         //这里必须要延时,消失太快会导致tree不能被选中
         setTimeout(function () {
-            $("#jstree").hide();
+//            $("#jstree").hide();
         }, 200)
     })
 
