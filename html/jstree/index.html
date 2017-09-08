@@ -69,7 +69,7 @@
 
 
 <script>
-    // html demo
+    /*// html demo
     $('#html').jstree();
 
     // inline data demo
@@ -147,11 +147,25 @@
         var instance = $('#evts').jstree(true);
         instance.deselect_all();
         instance.select_node('1');
-    });
+    });*/
 
     $('#evts')
         .on("changed.jstree", function (e, data) {
             if (data.selected.length) {
+//                console.log(e);
+              var nodes=data.selected;
+//              console.log(nodes);
+              var arr=[];
+
+              console.log(data.instance.get_node(data.selected[0]))
+                for (var i = 0; i < nodes.length; i++) {
+                   var temp = data.instance.get_node(data.selected[i])
+                    arr.push({id:temp.id,parents:temp.parents})
+                }
+              console.log(arr);
+              
+//                console.log(nodes);
+//                console.log(data);
 //                alert('The selected node is: ' + data.instance.get_node(data.selected[0]).text);
             }
         })
@@ -172,11 +186,11 @@
                 ]
             },
             "plugins": ["checkbox"],
-            "checkbox": {
-                "keep_selected_style": false,//是否默认选中
-                "three_state": false,//父子级别级联选择
-                "tie_selection": false
-            },
+//            "checkbox": {
+//                "keep_selected_style": false,//是否默认选中
+//                "three_state": true,//父子级别级联选择
+//                "tie_selection": true
+//            },
 
         });
 

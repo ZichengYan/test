@@ -51,12 +51,12 @@
         $.ajax({
             type: "get",
             dataType: "json",
-            url: "http://127.0.0.1:8000",
+            url: "package.json",
             success: function (data) {
                 console.log("success1");
                 console.log(Date.now());
-                dtd.reject(1, 2, 3);
-//                dtd.resolve(1, 2, 3);
+//                dtd.reject(1, 2, 3);
+                dtd.resolve(data);
             },
             error: function () {
                 console.log("error2");
@@ -71,12 +71,12 @@
         $.ajax({
             type: "get",
             dataType: "json",
-            url: "http://127.0.0.1:9123",
+            url: "package.json",
             success: function (data) {
                 console.log("success2");
                 console.log(Date.now());
-                dtd.reject(4, 5, 6);
-//                dtd.resolve(4,5,6,7);
+//                dtd.reject(4, 5, 6);
+                dtd.resolve(4,5,6,7);
             },
             error: function () {
                 console.log("error2");
