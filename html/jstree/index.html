@@ -153,8 +153,8 @@
         .on("changed.jstree", function (e, data) {
             if (data.selected.length) {
 //                console.log(e);
-              var nodes=data.selected;
-//              console.log(nodes);
+              var nodes=data;
+              console.log(nodes);
               var arr=[];
 
               console.log(data.instance.get_node(data.selected[0]))

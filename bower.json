@@ -1,9 +1,9 @@
 {
-  "name": "test",
+  "name": "r",
   "description": "",
   "main": "",
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/ZichengYan/test",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -13,5 +13,8 @@
   ],
   "authors": [
     "robert"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "1.8.3"
+  }
 }
