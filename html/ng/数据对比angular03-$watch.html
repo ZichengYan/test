@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    div {
+        height: 20px;
+        width: 100px;
+        background-color: yellow;
+    }
+    
+    .dis {
+        display: none;
+    }
+</style>
+<script src="angular-1.2.29.js"></script>
+
+<body ng-app="app" ng-controller="name1">
+    <input ng-model="val">
+    <!-- 有内容的时候显示 -->
+    <div ng-show="vis" ng-bind="b"></div>
+    <!-- <div ng-class="{'dis':vis}" ng-bind="b"></div> -->
+    <script>
+        var app = angular.module("app", []);
+        app.controller('name1', ['$scope', function($scope) {
+            $scope.vis = false;
+            $scope.$watch("val", function(newVal, oldVal) {
+                $scope.vis = false;
+                if (newVal !== undefined && newVal !== '') {
+                    $scope.vis = true;
+                    return;
+                }
+                if (newVal == "asd") {
+                    $scope.b = "昵称已存在";
+                } else {
+                    $scope.b = "昵称可以使用";
+                }
+            });
+        }]);
+    </script>
+</body>
+
+</html>

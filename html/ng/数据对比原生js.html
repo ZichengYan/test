@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    div {
+        height: 20px;
+        width: 100px;
+        background-color: yellow;
+    }
+    
+    .dis {
+        display: none;
+    }
+</style>
+
+<body>
+    <input type="text" id="ip" >
+    <!-- 有内容的时候显示 -->
+    <div class="dis" id="box"></div>
+    <script>
+        var input = document.getElementById("ip");
+        var box = document.getElementById("box");
+        //获取input值
+        
+        input.onkeyup = function() {
+            var val1 = input.value;
+            box.className = "dis";
+            if (val1 === "") return;
+            box.className = "dis";
+            if (val1 !== "") {
+                box.className = "";
+                if(val1 =="asd"){
+                    box.innerHTML="昵称已存在";
+                }else{
+                    box.innerHTML="昵称可以使用";
+                }
+            }
+        };
+    </script>
+</body>
+
+</html>
