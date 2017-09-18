@@ -13,7 +13,7 @@
 - `https://cdn.staticfile.org/zepto/1.2.0/zepto.js`
 - `https://cdn.staticfile.org/webuploader/0.1.5/webuploader.js`
 - `https://cdn.staticfile.org/jquery/1.11.1/jquery.js`
-
+-`https://cdn.staticfile.org/fastclick/1.0.6/fastclick.js`
 
 # 文件路径
 
