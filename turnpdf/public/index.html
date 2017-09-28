@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>test</title>
-    <script src="../html2canvas.js"></script>
+    <script src="./html2canvas.js"></script>
     <script src="https://cdn.staticfile.org/jquery/1.8.3/jquery.js"></script>
     <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -12,47 +12,29 @@
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
     <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!--<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
     <style>
-        .one {
-            border: 1px solid black;
-            height: 100px;
-            width: 100px;
-            background-color: cyan;
-        }
 
-        .two {
-            border: 1px solid black;
-            height: 100px;
-            width: 100px;
-            background-color: orange;
-        }
-
-        .three {
-            border: 1px solid black;
-            height: 100px;
-            width: 100px;
-            background-color: green;
-        }
-
-        .four {
-            border: 1px solid black;
-            height: 100px;
-            width: 100px;
-            background-color: yellow;
-        }
     </style>
 </head>
 <body id="b">
+<hr>
+<div id="png2">
+
+</div>
+<hr>
+<div id="png3">
+
+</div>
+<hr>
 <script>
     $(function () {
-        html2canvas(document.body, {
+        html2canvas(document.getElementById("box"), {
             onrendered: function (canvas) {
                 var myImage = canvas.toDataURL("image/png");
-                console.log(myImage.length);
-
-                console.dir(canvas);
-//                console.log(myImage);
+                var img = new Image()
+                img.src = myImage
+                $("#png2").append(img)
                 //并将图片上传到服务器用作图片分享
                 $.ajax({
                     type: "post",
@@ -73,7 +55,7 @@
     })
 </script>
 <iframe style="display:none" id="printIframe"></iframe>
-<div class="container-fluid">
+<div class="container-fluid" id="box">
     <div class="row-fluid">
         <div class="span12">
             <table class="table">
@@ -299,13 +281,13 @@
     </div>
     <div class="row-fluid">
         <div class="span4">
-            <img alt="140x140" src="img/a.jpg" class="img-polaroid"/>
+            <img alt="140x140" src="./a.jpg" class="img-polaroid"/>
         </div>
         <div class="span4">
-            <img alt="140x140" src="img/a.jpg"/>
+            <img alt="140x140" src="./a.jpg"/>
         </div>
         <div class="span4">
-            <img alt="140x140" src="img/a.jpg"/>
+            <img alt="140x140" src="./a.jpg"/>
         </div>
     </div>
     <div class="row-fluid">
