@@ -25,14 +25,7 @@
         }
 
         * {
-            -webkit-touch-callout: none; /* iOS Safari */
-            -webkit-user-select: none; /* Chrome/Safari/Opera */
-            -khtml-user-select: none; /* Konqueror */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none;
-            /* Non-prefixed version, currently
-           not supported by any browser */
         }
     </style>
 </head>
@@ -85,87 +78,82 @@
         return `#${_getRandomNum()}${_getRandomNum()}${_getRandomNum()}${_getRandomNum()}${_getRandomNum()}${_getRandomNum()}`
     }
 
-    $(function () {
-        function sync() {
+    function canvas_() {
+        var canvas = $('<canvas></canvas>')[0];
+        canvas.height = height;
+        canvas.width = width;
+        return canvas;
+    }
+
+    function sync() {
+        var sTime = Date.now();
+        var canvas = canvas_();
+        var ctx = canvas.getContext("2d");
+        for (let i = 0; i < $("#count").val().trim(); i++) {
+            ctx.fillStyle = getRandomColor();
+            ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
+        }
+        $("#code1").html(canvas);
+        $("#code1__").html(`${Date.now() - sTime}ms`);
+    }
+
+    function requestAnimationFrame_() {
+        window.requestAnimationFrame(function () {
             var sTime = Date.now();
-            var canvas = $('<canvas></canvas>')[0];
-            canvas.height = height;
-            canvas.width = width;
+            var canvas = canvas_();
             var ctx = canvas.getContext("2d");
             for (let i = 0; i < $("#count").val().trim(); i++) {
                 ctx.fillStyle = getRandomColor();
                 ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
             }
-            $("#code1").html(canvas);
-            $("#code1__").html(`${Date.now() - sTime}`);
-        }
+            $("#code2").html(canvas);
+            $("#code2__").html(`${Date.now() - sTime}ms`);
+        })
+    }
 
-        $('#code1_').click(sync);
-
-        function requestAnimationFrame() {
-            if ($('#script_')[0]) {
-                $('#script_').remove();
-            }
-            var script = `<script id="script_">${window.requestAnimationFrame(function () {
-                var sTime = Date.now();
-                var canvas = $('<canvas></canvas>')[0];
-                canvas.height = height;
-                canvas.width = width;
-                var ctx = canvas.getContext("2d");
-                for (let i = 0; i < $("#count").val().trim(); i++) {
-                    ctx.fillStyle = getRandomColor();
-                    ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
+    function settimeout_() {
+        var sTime = Date.now();
+        var canvas = canvas_();
+        var ctx = canvas.getContext("2d");
+        for (let i = 0; i < $("#count").val().trim(); i++) {
+            setTimeout(function () {
+                ctx.fillStyle = getRandomColor();
+                ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
+                if (i == $("#count").val().trim() - 1) {
+                    $("#code3").html(canvas);
+                    $("#code3__").html(`${Date.now() - sTime}ms`);
                 }
-                $("#code2").html(canvas);
-                $("#code2__").html(`${Date.now() - sTime}`);
-            })}<\/script>`;
-            $(script).appendTo('body');
+            })
         }
 
-        $('#code2_').click(requestAnimationFrame);
+    }
 
-        function settimeout() {
-            var sTime = Date.now();
-            var canvas = $('<canvas></canvas>')[0];
-            canvas.height = height;
-            canvas.width = width;
-            var ctx = canvas.getContext("2d");
-            for (let i = 0; i < $("#count").val().trim(); i++) {
+    function settimeoutFor() {
+        var sTime = Date.now();
+        var canvas = canvas_();
+        var ctx = canvas.getContext("2d");
+        var outF = 10;
+        var inF = $("#count").val().trim() / 10;
+        for (let i = 0; i < outF; i++) {
+            for (let j = 0; j < inF; j++) {
                 setTimeout(function () {
                     ctx.fillStyle = getRandomColor();
                     ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
-                    if (i == $("#count").val().trim()-1) {
-                        $("#code3").html(canvas);
-                        $("#code3__").html(`${Date.now() - sTime}`);
+                    if (i == outF - 1 && j == inF - 1) {
+                        $("#code4").html(canvas);
+                        $("#code4__").html(`${Date.now() - sTime}ms`);
                     }
                 })
             }
-
         }
+    }
 
-        $('#code3_').click(settimeout);
+    $(function () {
+        $('#code1_').click(sync);
 
-        function settimeoutFor() {
-            var sTime = Date.now();
-            var canvas = $('<canvas></canvas>')[0];
-            canvas.height = height;
-            canvas.width = width;
-            var ctx = canvas.getContext("2d");
-            var outF = 10;
-            var inF = $("#count").val().trim() / 10;
-            for (let i = 0; i < outF; i++) {
-                for (let j = 0; j < inF; j++) {
-                    setTimeout(function () {
-                        ctx.fillStyle = getRandomColor();
-                        ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
-                        if (i == outF-1 && j == inF-1) {
-                            $("#code4").html(canvas);
-                            $("#code4__").html(`${Date.now() - sTime}`);
-                        }
-                    })
-                }
-            }
-        }
+        $('#code2_').click(requestAnimationFrame_);
+
+        $('#code3_').click(settimeout_);
 
         $('#code4_').click(settimeoutFor);
     })
