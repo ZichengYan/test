@@ -31,13 +31,14 @@
     <span>验证码</span>
     <input type="text" name="verificationCode">
     <div class="code" id="code"></div>
+    <div class="code" id="code1"></div>
     <br>
     <br>
     <button id="submit">提交</button>
 </form>
 <script>
-    const width = 300;
-    const height = 300;
+    const width = 3000;
+    const height = 3000;
 
     /**
      * 随机数
@@ -89,7 +90,7 @@
         ctx.fillRect(0, 0, width, height);*/
         for (let i = 0; i < 10; i++) {
             setTimeout(function () {
-                for (let i = 0; i <10000; i++) {
+                for (let i = 0; i < 10000; i++) {
                     //设置对象起始点和终点
                     /*let x=getRandomNum(width);
                     let y=getRandomNum(height);
@@ -108,20 +109,54 @@
             }, 0)
 
         }
-       /* //设置字体样式
-        ctx.font = "16px Arial";
-        //设置字体填充颜色
-        ctx.fillStyle = getRandomColor();
-        //从坐标点(50,50)开始绘制文字
-        ctx.fillText('', 18, 20);
+        /* //设置字体样式
+         ctx.font = "16px Arial";
+         //设置字体填充颜色
+         ctx.fillStyle = getRandomColor();
+         //从坐标点(50,50)开始绘制文字
+         ctx.fillText('', 18, 20);
 
-        var dataURL = canvas.toDataURL('image/jpeg'); //转换图片为dataURL*/
+         var dataURL = canvas.toDataURL('image/jpeg'); //转换图片为dataURL*/
 //        $("#code").html(`<img src="${dataURL}" />`);
         $("#code").html(canvas);
 //        return dataURL;
     }
 
-    getCanvase();
+    window.requestAnimationFrame(function () {
+        function getCanvase1(code) {
+            var canvas = $('<canvas></canvas>')[0];
+            canvas.height = height;
+            canvas.width = width;
+            // var canvas = $('#canvas')[0];
+            var ctx = canvas.getContext("2d");
+
+            setTimeout(function () {
+                for (let i = 0; i < 100000; i++) {
+                    ctx.fillStyle = getRandomColor();
+                    ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
+                }
+            }, 0)
+            $("#code").html(canvas);
+        }
+
+//        getCanvase1()
+
+    })
+
+    function getCanvase2(code) {
+        var canvas = $('<canvas></canvas>')[0];
+        canvas.height = height;
+        canvas.width = width;
+        var ctx = canvas.getContext("2d");
+
+        for (let i = 0; i < 1000000; i++) {
+            ctx.fillStyle = getRandomColor();
+            ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
+        }
+        $("#code1").html(canvas);
+    }
+
+    getCanvase2();
 </script>
 </body>
 </html>
