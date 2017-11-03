@@ -9,8 +9,8 @@
         .code {
             vertical-align: middle;
             display: inline-block;
-            width: 300px;
-            height: 300px;
+            width: 100px;
+            height: 100px;
             border: 1px solid #000;
         }
 
@@ -18,27 +18,48 @@
             width: 100%;
             height: 100%;
         }
+
+        span {
+            border: 1px solid #000;
+            cursor: default;
+        }
+
+        * {
+            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; /* Chrome/Safari/Opera */
+            -khtml-user-select: none; /* Konqueror */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none;
+            /* Non-prefixed version, currently
+           not supported by any browser */
+        }
     </style>
 </head>
 <body>
 <form id="form">
-    账号 : <input type="text" value="admin" id="city" name="login_username">
+    绘制点数量<input type="text" value="1000" id="count">
     <br>
-    <br>
-    密码 : <input type="text" name="login_password" value="123456">
-    <br>
-    <br>
-    <span>验证码</span>
-    <input type="text" name="verificationCode">
-    <div class="code" id="code"></div>
+    <span id="code1_">同步for循环</span>
     <div class="code" id="code1"></div>
+    <i id="code1__"></i>
     <br>
+    <span id="code2_">requestAnimationFrame for循环</span>
+    <div class="code" id="code2"></div>
+    <i id="code2__"></i>
     <br>
-    <button id="submit">提交</button>
+    <span id="code3_">settimeout for循环</span>
+    <div class="code" id="code3"></div>
+    <i id="code3__"></i>
+    <br>
+    <span id="code4_">setTimeout嵌套 for循环</span>
+    <div class="code" id="code4"></div>
+    <i id="code4__"></i>
+
 </form>
 <script>
-    const width = 3000;
-    const height = 3000;
+    const width = 100;
+    const height = 100;
 
     /**
      * 随机数
@@ -64,99 +85,91 @@
         return `#${_getRandomNum()}${_getRandomNum()}${_getRandomNum()}${_getRandomNum()}${_getRandomNum()}${_getRandomNum()}`
     }
 
-    function getCode() {
-        $.ajax({
-            type: "get",
-            dataType: 'JSON',
-            url: "/verificationCode",
-            success: function (data) {
-                console.log("data", data);
-                getCanvase(data.result.verifiCode);
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        })
-    }
-
-    function getCanvase(code) {
-        var canvas = $('<canvas></canvas>')[0];
-        canvas.height = height;
-        canvas.width = width;
-        // var canvas = $('#canvas')[0];
-        var ctx = canvas.getContext("2d");
-
-        /*ctx.fillStyle = "#000";
-        ctx.fillRect(0, 0, width, height);*/
-        for (let i = 0; i < 10; i++) {
-            setTimeout(function () {
-                for (let i = 0; i < 10000; i++) {
-                    //设置对象起始点和终点
-                    /*let x=getRandomNum(width);
-                    let y=getRandomNum(height);
-                    ctx.moveTo(x, y);
-                    ctx.lineTo(x+1, y+1);//设置样式
-                    ctx.lineWidth = 1;
-                    ctx.strokeStyle = getRandomColor();
-                    //绘制
-                    ctx.stroke();*/
-
-                    ctx.fillStyle = getRandomColor();
-                    ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
-
-//                    ctx.beginPath();
-                }
-            }, 0)
-
-        }
-        /* //设置字体样式
-         ctx.font = "16px Arial";
-         //设置字体填充颜色
-         ctx.fillStyle = getRandomColor();
-         //从坐标点(50,50)开始绘制文字
-         ctx.fillText('', 18, 20);
-
-         var dataURL = canvas.toDataURL('image/jpeg'); //转换图片为dataURL*/
-//        $("#code").html(`<img src="${dataURL}" />`);
-        $("#code").html(canvas);
-//        return dataURL;
-    }
-
-    window.requestAnimationFrame(function () {
-        function getCanvase1(code) {
+    $(function () {
+        function sync() {
+            var sTime = Date.now();
             var canvas = $('<canvas></canvas>')[0];
             canvas.height = height;
             canvas.width = width;
-            // var canvas = $('#canvas')[0];
             var ctx = canvas.getContext("2d");
+            for (let i = 0; i < $("#count").val().trim(); i++) {
+                ctx.fillStyle = getRandomColor();
+                ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
+            }
+            $("#code1").html(canvas);
+            $("#code1__").html(`${Date.now() - sTime}`);
+        }
 
-            setTimeout(function () {
-                for (let i = 0; i < 100000; i++) {
+        $('#code1_').click(sync);
+
+        function requestAnimationFrame() {
+            if ($('#script_')[0]) {
+                $('#script_').remove();
+            }
+            var script = `<script id="script_">${window.requestAnimationFrame(function () {
+                var sTime = Date.now();
+                var canvas = $('<canvas></canvas>')[0];
+                canvas.height = height;
+                canvas.width = width;
+                var ctx = canvas.getContext("2d");
+                for (let i = 0; i < $("#count").val().trim(); i++) {
                     ctx.fillStyle = getRandomColor();
                     ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
                 }
-            }, 0)
-            $("#code").html(canvas);
+                $("#code2").html(canvas);
+                $("#code2__").html(`${Date.now() - sTime}`);
+            })}<\/script>`;
+            $(script).appendTo('body');
         }
 
-//        getCanvase1()
+        $('#code2_').click(requestAnimationFrame);
 
+        function settimeout() {
+            var sTime = Date.now();
+            var canvas = $('<canvas></canvas>')[0];
+            canvas.height = height;
+            canvas.width = width;
+            var ctx = canvas.getContext("2d");
+            for (let i = 0; i < $("#count").val().trim(); i++) {
+                setTimeout(function () {
+                    ctx.fillStyle = getRandomColor();
+                    ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
+                    if (i == $("#count").val().trim()-1) {
+                        $("#code3").html(canvas);
+                        $("#code3__").html(`${Date.now() - sTime}`);
+                    }
+                })
+            }
+
+        }
+
+        $('#code3_').click(settimeout);
+
+        function settimeoutFor() {
+            var sTime = Date.now();
+            var canvas = $('<canvas></canvas>')[0];
+            canvas.height = height;
+            canvas.width = width;
+            var ctx = canvas.getContext("2d");
+            var outF = 10;
+            var inF = $("#count").val().trim() / 10;
+            for (let i = 0; i < outF; i++) {
+                for (let j = 0; j < inF; j++) {
+                    setTimeout(function () {
+                        ctx.fillStyle = getRandomColor();
+                        ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
+                        if (i == outF-1 && j == inF-1) {
+                            $("#code4").html(canvas);
+                            $("#code4__").html(`${Date.now() - sTime}`);
+                        }
+                    })
+                }
+            }
+        }
+
+        $('#code4_').click(settimeoutFor);
     })
 
-    function getCanvase2(code) {
-        var canvas = $('<canvas></canvas>')[0];
-        canvas.height = height;
-        canvas.width = width;
-        var ctx = canvas.getContext("2d");
-
-        for (let i = 0; i < 1000000; i++) {
-            ctx.fillStyle = getRandomColor();
-            ctx.fillRect(getRandomNum(width), getRandomNum(height), 1, 1);
-        }
-        $("#code1").html(canvas);
-    }
-
-    getCanvase2();
 </script>
 </body>
 </html>
