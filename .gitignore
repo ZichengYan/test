@@ -41,7 +41,7 @@ veloctiy/velocityServer
 
 **/bower_components
 dist
-.idea
+**/.idea
 **/.svn
 build/rev/
 /test/skeleton.js
