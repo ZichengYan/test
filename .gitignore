@@ -49,3 +49,5 @@ build/rev/
 axure/
 Would skip repository febutools/
 git_pro
+**/*.zip
+**/*.rar

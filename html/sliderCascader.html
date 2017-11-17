@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+
+    <title>iScroll demo: horizontal scrolling</title>
+
+    <!--<script type="text/javascript" src="https://cdn.staticfile.org/iScroll/5.2.0/iscroll.js"></script>-->
+    <script type="text/javascript" src="https://cdn.staticfile.org/iScroll/5.2.0/iscroll-probe.js"></script>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.js"></script>
+    <!--<script type="text/javascript" src="../demoUtils.js"></script>-->
+
+
+    <style type="text/css">
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        html {
+            -ms-touch-action: none;
+        }
+
+        body, ul, li {
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+
+        body {
+            font-size: 12px;
+            font-family: ubuntu, helvetica, arial;
+            overflow: hidden; /* this is important to prevent the whole page to bounce */
+        }
+
+        #wrapper {
+            padding-left: 50%;
+            position: absolute;
+            z-index: 1;
+            top: 45px;
+            bottom: 48px;
+            left: 0;
+            width: 100%;
+            overflow: hidden;
+            padding-top: 50px;
+        }
+
+        #scroller {
+            position: absolute;
+            z-index: 1;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            width: 1900px;
+            height: 100%;
+            transform: translateZ(0);
+            text-size-adjust: none;
+            padding-top: 20px;
+            /*transform: translateX(300px);*/
+        }
+
+        #wrapper:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 30px;
+            transform: translateX(-50%);
+            display: block;
+            height: 20px;
+            border: 1px solid #000000;
+        }
+
+        #scroller ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+
+        #scroller li {
+            display: block;
+            float: left;
+            width: 100px;
+            height: 50px;
+            border-right: 1px solid #ccc;
+            background-color: #fafafa;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+<div>
+    位移:<p id="result">500</p></div>
+<div id="wrapper" class="wrapper">
+    <div id="scroller" class="scroller">
+        <ul>
+            <img class="img" src="" alt="">
+        </ul>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--<div><img class="img" src="" alt=""></div>-->
+<script type="text/javascript">
+    function isPassive() {
+        var supportsPassiveOption = false;
+        try {
+            addEventListener("test", null, Object.defineProperty({}, 'passive', {
+                get: function () {
+                    supportsPassiveOption = true;
+                }
+            }));
+        } catch (e) {
+        }
+        return supportsPassiveOption;
+    }
+
+    document.addEventListener('touchmove', function (e) {
+        e.preventDefault();
+    }, isPassive() ? {
+        capture: false,
+        passive: false
+    } : false);
+
+    class Canvas {
+        constructor(x, y) {
+            this.canvas = document.createElement('canvas');
+            this.canvas.width = x;
+            this.canvas.height = y;
+            this.x = x;
+            this.y = y;
+        }
+
+        getCanvase() {
+            const x = this.x, y = this.y;
+            var canvas = this.canvas;
+            var ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#ccc';
+            ctx.fillRect(0, 0, x, y);
+
+            //设置字体样式
+            ctx.font = "25px Arial"; //必须有字体大小才会生效
+
+            //设置字体填充颜色
+            ctx.fillStyle = '#ccc';
+
+
+            for (var i = 0; i < 1500; i += 10) {
+                let lineStartX = i;
+                let linEndX = lineStartX;
+                let lineStartY = 20;
+                let lineEndY = 10;
+//                let lineEndLongY = 0;
+
+                //从坐标点(50,50)开始绘制文字
+//                ctx.fillText(code, 8, 25);
+                //设置对象起始点和终点
+                ctx.moveTo(lineStartX, lineStartY);
+                if (i == 0 ||
+                    (
+                        (i < 450) &&
+                        (i % 50 == 0) &&
+                        (i % 100 != 0))) {
+                    lineEndY = 0;
+                } else if (i >= (4500 / 10)) {
+                    lineEndY = lineStartY;
+                    if (i % 100 != 0 && i % 50 == 0) {
+                        lineEndY = 0;
+                    }
+                }
+
+                ctx.lineTo(linEndX, lineEndY);
+                ctx.lineWidth = 0.5;
+                ctx.strokeStyle = '#00c';
+                //绘制
+                ctx.stroke();
+
+                ctx.beginPath();
+
+            }
+            var dataURL = canvas.toDataURL('image/jpeg'); //转换图片为dataURL
+            return dataURL;
+        }
+    }
+
+
+    /**
+     * 数值对应
+     * @param num
+     * @returns {number}
+     */
+    function range(num) {
+        var temp = 0;
+        var prexNum = parseInt(Math.abs(num)) + (500 / 10);// 使用正整数 移动的像素值
+        var moneyVal = (prexNum / 10) * 100; // 计算移动多少数额   10px  代表100元
+
+        if (moneyVal <= 500) {
+            return 500;
+        }
+
+        if (moneyVal > 500 && moneyVal <= 5000) {
+            temp = Math.round(moneyVal / 100) * 100
+            return temp;
+        }
+
+        if (moneyVal > 5000 && moneyVal <= 15000) {
+            temp = Math.round(moneyVal / 1000) * 1000
+            return temp;
+        }
+
+        if (moneyVal > 15000) {
+            return 15000;
+        }
+    }
+
+
+    $(function () {
+        var myScroll = new IScroll('#wrapper',
+            {
+                scrollX: true,
+                scrollY: false,
+                mouseWheel: false,
+                probeType: 2
+            });
+        myScroll.on('scroll', function () {
+            $('#result').html(range(this.x));
+            console.log('scroll', this.x);
+        });
+
+        myScroll.on('scrollEnd', function () {
+            var endVal = range(this.x);
+            console.log(endVal);
+            var scrollTo = endVal / 100 * 10 - (500 / 10);
+            $('#result').html(endVal);
+            myScroll.scrollTo(-scrollTo, 0);
+            console.log('scrollEnd', this.x);
+        });
+
+        var cav = new Canvas(1900, 50);
+        $('.img').attr('src', cav.getCanvase());
+
+    })
+
+</script>
+</body>
+</html>
