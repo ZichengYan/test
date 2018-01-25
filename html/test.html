@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script src="https://cdn.staticfile.org/jquery/1.8.3/jquery.js"></script>-->
+    <script src="https://cdn.staticfile.org/jquery/2.1.4/jquery.js"></script>
+</head>
+<body>
+<div class="container" id="container">
+    <ul>
+        <li id="userIdArrEditLi">
+            <!--<span>1</span>
+            <span>1</span>
+            <span><input type="text" value="test123"></span>-->
+        </li>
+    </ul>
+</div>
+<script>
+    $(function () {
+        var str=`<span>1</span>
+            <span>1</span>
+            <span><input type="text" value="test123"> <input type="text" value="test123121"> <input type="text" value="test121223"></span>`
+        $("ul li ").append(str);
+        console.log($('li span:last ').find('input:first-child').val());
+        console.log($("#userIdArrEditLi").children("span:last-child"));
+        console.log($("#userIdArrEditLi").children("span:last-child").children("input:first-child").val());
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.js"></script>
+    <title>Document</title>
+</head>
+<body>
+<style>
+    label, input {
+        display: block;
+    }
+
+    .item {
+        position: relative;
+        height: 50px;
+        padding-top: 27px;
+        box-sizing: border-box;
+    }
+
+    .filled label {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        transition: all 1s;
+    }
+    label {
+        position: absolute;
+        top: 10px;
+        left: 0;
+    }
+
+     input:focus + label {
+        transition: all 1s;
+        top: 10px;
+    }
+</style>
+<div class="item filled">
+    <input id="bank" type="text" placeholder="">
+    <label for="bank">银行卡号</label>
+</div>
+
+<script>
+    $('input').on('blur', function () {
+        if ($(this).val().trim()) {
+            $(this).parent().removeClass('filled')
+        } else {
+            $(this).parent().addClass('filled')
+        }
+    })
+</script>
+</body>
+</html>

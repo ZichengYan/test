@@ -1,0 +1,12 @@
+{
+  "name": "img",
+  "version": "0.0.1",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.0",
+    "gulp-imagemin": "^4.0.0",
+    "gulp-uglify": "^3.0.0",
+    "imagemin-pngquant": "^5.0.1"
+  }
+}
